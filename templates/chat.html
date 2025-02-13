@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ gc_info.name }} - Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #111; color: white; }
+        .chat-container { width: 50%; margin: auto; padding: 20px; background: #222; border-radius: 10px; box-shadow: 0px 0px 10px cyan; text-align: center; }
+        .gc-header { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .gc-header img { width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; }
+        .message { padding: 10px; margin: 10px; border-radius: 5px; max-width: 70%; display: flex; align-items: center; }
+        .message img { width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; }
+        .user { background: cyan; color: black; align-self: flex-end; }
+        .other { background: gray; align-self: flex-start; }
+        .timestamp { font-size: 12px; color: #bbb; text-align: right; }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="gc-header">
+            <img src="{{ gc_info.photo }}" alt="GC Photo">
+            <h2>{{ gc_info.name }}</h2>
+        </div>
+        
+        <div class="messages">
+            {% for msg in messages %}
+                <div class="message {% if msg.user_id == 'You' %}user{% else %}other{% endif %}">
+                    <img src="{{ msg.profile_pic }}" alt="Profile Pic">
+                    <div>
+                        <b>{{ msg.name }}</b>: {{ msg.message }}
+                        <div class="timestamp">{{ msg.time }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
